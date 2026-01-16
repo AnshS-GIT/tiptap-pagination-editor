@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tiptap Document Editor with Pagination
 
-## Getting Started
+## Overview
+This project is a Tiptap-based document editor designed to simulate real-world legal document drafting.  
+It provides **visual pagination**, allowing users to clearly see page boundaries while typing, similar to Google Docs or Microsoft Word.
 
-First, run the development server:
+The editor is optimized for **print accuracy**, ensuring exported documents match what users see during editing.
+
+---
+
+## Features
+
+### Core Functionality
+- Rich text editor built with **Tiptap**
+- A4 page size with **1-inch margins**
+- Real-time visual page breaks
+- Live page count
+- Stable cursor and smooth editing experience
+
+### Supported Formatting
+- Paragraphs
+- Headings
+- Bold / Italic text
+- Bullet and ordered lists
+
+### Export
+- **PDF Export** using Node.js + Puppeteer
+- **DOCX Export** using Node.js + `docx` library
+- Exported documents match editor layout (page size, margins, typography)
+
+---
+
+## Pagination Approach
+
+True pagination during typing is challenging in rich text editors due to cursor and DOM constraints.
+
+This project uses:
+- A **single continuous editor instance** for stability
+- DOM height measurement (`scrollHeight`) to calculate page count
+- CSS background rendering to show page boundaries
+- CSS masking to hide content between pages
+
+This mirrors how many production editors balance editing stability with print accuracy.
+
+---
+
+## Export Strategy
+
+### PDF Export
+- Editor HTML is sent to a Node.js backend
+- Puppeteer generates a PDF using A4 size and 1-inch margins
+- Ensures submission-ready formatting (e.g. USCIS documents)
+
+### DOCX Export
+- Editor content is converted into Word paragraphs
+- Page size and margins are applied to match the editor
+- Rich formatting can be extended by mapping Tiptap nodes to Word styles
+
+---
+
+## Optional Enhancements (Future Work)
+- Page numbers
+- Header and footer support
+- Tables with improved pagination handling
+
+---
+
+## Tech Stack
+- **Next.js (App Router)**
+- **React**
+- **Tiptap**
+- **Tailwind CSS**
+- **Node.js**
+- **Puppeteer**
+- **docx**
+
+---
+
+## Running Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

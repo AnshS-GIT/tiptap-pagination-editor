@@ -24,3 +24,33 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.ProseMirror {
+  outline: none;
+  min-height: 100%;  
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ProseMirror,
+.ProseMirror *,
+.ProseMirror p {
+  color: #000000 !important;
+}
+
+.ProseMirror p {
+  margin-bottom: 0.75rem;
+}
+
+.shadow-md.bg-white {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    white 0px,
+    white 1122px,
+    #f3f4f6 1122px,
+    #f3f4f6 1170px
+  ) !important;
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+}
+
