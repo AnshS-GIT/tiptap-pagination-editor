@@ -72,6 +72,7 @@ This approach mirrors how production-grade editors balance **editing stability**
 - Formatting can be extended by mapping editor nodes to Word styles
 
 ---
+-> Note: PDF and DOCX export are implemented using a Node.js backend and are intended to run in environments that support headless browsers. The deployed editor focuses on pagination and layout accuracy.
 
 ## Optional Enhancements (Future Work)
 - Page numbers
