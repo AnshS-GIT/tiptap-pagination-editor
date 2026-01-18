@@ -42,7 +42,7 @@ The editor prioritizes **editing stability and layout accuracy**, with an export
 - **DOCX Export** using Node.js + `docx` library
 - Export pipeline applies the same page size and margins as the editor
 
-> Note: PDF/DOCX export is implemented via a backend service and is designed to run in environments that support document generation tooling.
+> Note: PDF and DOCX export are implemented via a backend service and are intended to run in environments that support document generation tooling.
 
 ---
 
@@ -59,25 +59,26 @@ This approach mirrors how production-grade editors balance **editing stability**
 
 ---
 
-## Export Strategy
+## Trade-offs and Limitations
 
-### PDF Export
-- Editor HTML is sent to a Node.js backend
-- Puppeteer generates a PDF using A4 size and 1-inch margins
-- Ensures print-ready formatting suitable for legal documents
+- True page breaks are not enforced at the editor model level. Pagination is simulated visually to avoid cursor instability during typing.
+- Page boundaries are calculated using DOM height measurement, which can vary slightly across browsers or font rendering environments.
+- Headers, footers, and tables are not included in the core implementation and are treated as optional enhancements.
+- PDF and DOCX export rely on a Node.js backend with headless browser support and are not intended to run directly in constrained serverless environments.
 
-### DOCX Export
-- Editor content is converted into Word paragraphs
-- Page size and margins are applied to match the editor layout
-- Formatting can be extended by mapping editor nodes to Word styles
+These trade-offs were chosen intentionally to prioritize a smooth editing experience and realistic production constraints over forcing strict page segmentation during live editing.
 
 ---
--> Note: PDF and DOCX export are implemented using a Node.js backend and are intended to run in environments that support headless browsers. The deployed editor focuses on pagination and layout accuracy.
 
-## Optional Enhancements (Future Work)
-- Page numbers
-- Header and footer support
-- Tables with improved pagination handling
+## Improvements With More Time
+
+With additional time, the following enhancements could be explored:
+
+- Configurable header and footer support
+- Table-aware pagination to prevent row splitting across pages
+- More precise layout measurement using font metrics instead of DOM height
+- Document templates for different legal use cases
+- Richer DOCX export with deeper style mapping
 
 ---
 
