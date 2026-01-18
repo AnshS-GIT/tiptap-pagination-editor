@@ -1,10 +1,11 @@
 # Tiptap Document Editor with Pagination
 
 ## Overview
-This project is a Tiptap-based document editor designed to simulate real-world legal document drafting.  
+This project is a **Tiptap-based document editor** designed to simulate real-world **legal document drafting workflows**.
+
 It provides **visual pagination**, allowing users to clearly see page boundaries while typing, similar to Google Docs or Microsoft Word.
 
-The editor is optimized for **print accuracy**, ensuring exported documents match what users see during editing.
+The editor prioritizes **editing stability and layout accuracy**, with an export pipeline designed to produce print-ready documents.
 
 ---
 
@@ -13,9 +14,12 @@ The editor is optimized for **print accuracy**, ensuring exported documents matc
 ### Core Functionality
 - Rich text editor built with **Tiptap**
 - A4 page size with **1-inch margins**
-- Real-time visual page breaks
+- Real-time visual page boundaries
 - Live page count
 - Stable cursor and smooth editing experience
+- Content reflows correctly when editing mid-document
+
+---
 
 ### Supported Formatting
 - Paragraphs
@@ -23,24 +27,35 @@ The editor is optimized for **print accuracy**, ensuring exported documents matc
 - Bold / Italic text
 - Bullet and ordered lists
 
+---
+
+### Pagination Behavior
+- Pages are rendered visually as fixed-size A4 sheets
+- Content flows naturally across pages
+- Long paragraphs span pages correctly
+- Page count updates dynamically as content changes
+
+---
+
 ### Export
 - **PDF Export** using Node.js + Puppeteer
 - **DOCX Export** using Node.js + `docx` library
-- Exported documents match editor layout (page size, margins, typography)
+- Export pipeline applies the same page size and margins as the editor
+
+> Note: PDF/DOCX export is implemented via a backend service and is designed to run in environments that support document generation tooling.
 
 ---
 
 ## Pagination Approach
 
-True pagination during typing is challenging in rich text editors due to cursor and DOM constraints.
+True pagination during live editing is challenging in rich text editors due to cursor and DOM constraints.
 
 This project uses:
-- A **single continuous editor instance** for stability
+- A **single continuous Tiptap editor instance** to preserve cursor stability
 - DOM height measurement (`scrollHeight`) to calculate page count
-- CSS background rendering to show page boundaries
-- CSS masking to hide content between pages
+- Per-page content clipping to visually enforce page boundaries
 
-This mirrors how many production editors balance editing stability with print accuracy.
+This approach mirrors how production-grade editors balance **editing stability** with **print-oriented layout fidelity**.
 
 ---
 
@@ -49,12 +64,12 @@ This mirrors how many production editors balance editing stability with print ac
 ### PDF Export
 - Editor HTML is sent to a Node.js backend
 - Puppeteer generates a PDF using A4 size and 1-inch margins
-- Ensures submission-ready formatting (e.g. USCIS documents)
+- Ensures print-ready formatting suitable for legal documents
 
 ### DOCX Export
 - Editor content is converted into Word paragraphs
-- Page size and margins are applied to match the editor
-- Rich formatting can be extended by mapping Tiptap nodes to Word styles
+- Page size and margins are applied to match the editor layout
+- Formatting can be extended by mapping editor nodes to Word styles
 
 ---
 
